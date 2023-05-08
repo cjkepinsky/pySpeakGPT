@@ -1,9 +1,13 @@
 # import openai_whisper
 import whisper
 
-openai_api_key = "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"
+api_key = os.getenv("OPENAI_API_KEY")
 
-with openai_whisper.setup(api_key=openai_api_key):
+if api_key is None:
+    print("Nie udało się odczytać wartości zmiennej środowiskowej OPENAI_API_KEY.")
+    exit(1)
+
+with openai_whisper.setup(api_key=api_key):
     prompt = "What is the capital of France?"
     response = openai_whisper.Completion.create(
         engine="davinci",
